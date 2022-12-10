@@ -1,0 +1,148 @@
+<html class="theme-dark" lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1, minimum-scale=1, width=device-width">
+		<title>Test Page</title>
+		<link rel="icon" type="image/x-icon" href="assets/favicon.png">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,700;1,100;1,200;1,400;1,600&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="assets/styles.css"/>
+	</head>
+	<body>
+		<div class="sticky-top">
+			<nav class="navbar bg-light">
+				<div class="container-fluid flex-column flex-md-row">
+					<div class="mMenu" data-bs-toggle="offcanvas" data-bs-target="#offcanvasmenu" aria-controls="offcanvasmenu">
+						<img class="img-fluid" width="30px" src="assets/menu-left.svg">
+					</div>
+					<a class="navbar-brand d-inline-flex" href="#!">
+						<img class="img-fluid me-1" src="assets/note.svg"> Notes
+					</a>
+					<div class="mx-md-auto">
+						<form class="mb-2 mb-md-0 mw-100 searchform" method="POST" role="search">
+							<input id="search" class="form-control text-center text-md-start rounded-pill" type="search" placeholder="Search" aria-label="Search">
+						</form>
+					</div>
+					<div class="d-none d-md-inline-block">
+						<button class="btn bg-dark text-white rounded-pill px-4 border-0" data-bs-toggle="offcanvas" data-bs-target="#offcanvasnote" aria-controls="offcanvasnote">+ Add Note</button>
+					</div>
+				</div>
+			</nav>
+			<div class="container-fluid my-3 text-center btn-actions">
+				<button class="btn bg-light rounded-pill px-3 border-0 me-2 show-all"><img class="img-fluid me-1" src="assets/list.svg"> All</button>
+				<button class="btn bg-light rounded-pill px-3 border-0 me-2 show-pinned"><img class="img-fluid me-1" src="assets/pin-fill.svg"> Pinned</button>
+				<button class="btn bg-light rounded-pill px-3 border-0 show-all"><img class="img-fluid me-1" src="assets/refresh.svg"> Refresh</button>
+			</div>
+		</div>
+		<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasmenu" aria-labelledby="offcanvasLabel">
+			<div class="offcanvas-header">
+				<h5 class="offcanvas-title" id="offcanvasLabel">Menu</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+				<div class="mb-5 d-flex justify-content-between">
+					<button class="btn bg-dark text-white rounded-pill px-4 border-0" data-bs-toggle="offcanvas" data-bs-target="#offcanvasnote" aria-controls="offcanvasnote">+ Add Note</button>
+					<button class="btn bg-dark text-white rounded-pill px-4 border-0" data-bs-toggle="offcanvas" data-bs-target="#offcanvascategories" aria-controls="offcanvascategories">+ Add Category</button>
+				</div>
+				<div>
+					<h5 class="mb-3">Categories:</h5>
+					<div class="bg-light rounded my-2 px-3 py-2 category-filter">All</div>
+					<div class="categories-filter-list"></div>
+				</div>
+			</div>
+		</div>
+		<div class="offcanvas offcanvas-cw offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="offcanvasnote" aria-labelledby="offcanvasLabel">
+			<div class="offcanvas-header">
+				<h5 class="offcanvas-title" id="offcanvasLabel">Note</h5>
+				<button type="button" class="btn-close close-note-box" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+				<div>
+					<form id="noteform" method="POST">
+						<div class="form-floating mb-4">
+							<input type="hidden" id="noteId" value="">
+							<select class="form-select" id="noteCategory" aria-label="Note Category">
+								<option value="" selected>Select</option>
+							</select>
+							<label for="noteCategory">Category:</label>
+						</div>
+						<div class="form-floating mb-4">
+							<input type="text" class="form-control" id="noteTitle" placeholder="Note Title">
+							<label for="noteTitle">Title:</label>
+						</div>
+						<div class="form-floating mb-4">
+							<textarea class="form-control" placeholder="add content here" id="noteContent" style="height: 300px"></textarea>
+							<label for="noteContent">Content:</label>
+						</div>
+						<div>
+							<button class="btn bg-success text-white rounded-pill px-4 border-0 me-2">Save</button>
+							<button type="button" class="btn bg-dark text-white rounded-pill px-4 border-0 close-note" data-bs-dismiss="offcanvas" aria-label="Close">Close</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="offcanvascategories" aria-labelledby="offcanvasLabel">
+			<div class="offcanvas-header">
+				<h5 class="offcanvas-title" id="offcanvasLabel">Categories</h5>
+				<button type="button" class="btn-close close-categories" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+				<div>
+					<form id="categoryform" method="POST">
+						<div class="form-floating mb-2">
+							<input type="hidden" id="categoryId" value="">
+							<input type="text" class="form-control" id="categoryName" placeholder="Add">
+							<label for="categoryName">Category Name:</label>
+						</div>
+						<div class="mb-3 text-end">
+							<button class="btn bg-success text-white rounded-pill px-4 border-0">Save</button>
+						</div>
+					</form>
+				</div>
+				<div class="mt-5 mb-4">
+					<h5 class="mb-3">Categories:</h5>
+					<div class="categories-list"></div>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid my-3">
+			<div class="row g-3 notes-list"></div>
+		</div>
+		<div class="container-fluid my-3 no-notes" style="display: none;">
+			<div class="d-flex flex-column align-items-center">
+				<img class="img-fluid filter-none mt-5 mb-4" style="width: 20rem;" src="assets/add-new-notes.svg">
+				<button class="btn btn-lg bg-light rounded-pill px-4 border-0" data-bs-toggle="offcanvas" data-bs-target="#offcanvasnote" aria-controls="offcanvasnote">+ Add Note</button>
+			</div>
+		</div>
+		<div class="space-box"></div>
+		<div class="fixed-bottom d-flex justify-content-between align-items-center px-3 pb-3">
+			<div class="alert-messages"></div>
+			<button class="btn btn-lg bg-dark text-white rounded-circle py-1 py-md-0 px-3 border-0 fs-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasnote" aria-controls="offcanvasnote">+</button>
+		</div>
+		
+		<div class="modal fade" id="deleteConfirmModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content bg-light p-1">
+					<div class="modal-header border-0">
+						<h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Note</h1>
+						<button type="button" class="btn-close delete-cancel" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						Are you sure? you want to delete the note.
+					</div>
+					<div class="modal-footer border-0">
+						<button type="button" class="btn btn-success px-5 rounded-pill me-2 delete-confirm" data-note="">Yes</button>
+						<button type="button" class="btn btn-dark px-5 rounded-pill delete-no" data-bs-dismiss="modal">No</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.min.js"></script>
+		<script src="assets/script.js"></script>
+	</body>
+</html>
